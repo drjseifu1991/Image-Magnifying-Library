@@ -5,8 +5,9 @@ import Image from 'next/image'
 interface IProps {
   srcUrl: string
   alt: string
-  imageWidth: number
-  imageHeight: number
+  priority: boolean
+  unoptimized: boolean
+  quality: number
   magnifyWidth: number
   magnifyHeight: number
   zoomLevel: number
@@ -15,8 +16,9 @@ interface IProps {
 const ImageMagnify: React.FC<IProps> = ({
   srcUrl, 
   alt,
-  imageWidth,
-  imageHeight,
+  priority,
+  unoptimized,
+  quality,
   magnifyWidth,
   magnifyHeight,
   zoomLevel
@@ -29,18 +31,23 @@ const ImageMagnify: React.FC<IProps> = ({
 
   return (
     <div
-    style={{
-      position: "relative",
-      width: imageWidth,
-      height: imageHeight
-    }}
+      style={{
+        width: '100%', 
+        height: '100%', 
+        position: 'relative'
+      }}
     >
       {/* the image */}
       <Image
         src={srcUrl}
         alt={alt}
-        width={imageWidth}
-        height={imageHeight}
+        priority={priority}
+        unoptimized={unoptimized}
+        quality={quality}
+        fill
+        style={{
+          objectFit: 'contain'
+        }}
         onMouseEnter={(e) => {
           // update image size and turn-on magnifier
           const elem = e.currentTarget;
